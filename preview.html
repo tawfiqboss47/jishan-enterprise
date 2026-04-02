@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>JISAN ENTERPRISE Price System</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: #0f172a;
+    color: white;
+    text-align: center;
+}
+
+.container {
+    width: 350px;
+    margin: 50px auto;
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+input {
+    width: 90%;
+    padding: 10px;
+    margin: 8px;
+    border-radius: 8px;
+    border: none;
+}
+
+button {
+    padding: 10px 15px;
+    margin: 5px;
+    border: none;
+    border-radius: 8px;
+    background: #22c55e;
+    color: white;
+    cursor: pointer;
+}
+
+h2 {
+    margin-bottom: 15px;
+}
+
+.result {
+    margin-top: 15px;
+    font-size: 18px;
+    color: #38bdf8;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>JISAN ENTERPRISE PRICE TOOL</h2>
+
+    <input type="text" id="code" placeholder="Enter Code (MILK)">
+    <button onclick="toNumber()">Code → Price</button>
+
+    <input type="text" id="number" placeholder="Enter Number (1234)">
+    <button onclick="toCode()">Price → Code</button>
+
+    <input type="number" id="cost" placeholder="Cost Price">
+    <input type="number" id="profit" placeholder="Profit %">
+
+    <button onclick="calculate()">Calculate Selling Price</button>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+let map = {
+    'M': '1',
+    'I': '2',
+    'L': '3',
+    'K': '4',
+    'P': '5',
+    'O': '6',
+    'W': '7',
+    'D': '8',
+    'E': '9',
+    'R': '0'
+};
+
+let reverseMap = {
+    '1': 'M',
+    '2': 'I',
+    '3': 'L',
+    '4': 'K',
+    '5': 'P',
+    '6': 'O',
+    '7': 'W',
+    '8': 'D',
+    '9': 'E',
+    '0': 'R'
+};
+
+// Code → Number
+function toNumber() {
+    let input = document.getElementById("code").value.toUpperCase();
+    let output = "";
+
+    for (let char of input) {
+        output += map[char] || char;
+    }
+
+    document.getElementById("result").innerText = "Price: " + output;
+}
+
+// Number → Code
+function toCode() {
+    let input = document.getElementById("number").value;
+    let output = "";
+
+    for (let num of input) {
+        output += reverseMap[num] || num;
+    }
+
+    document.getElementById("result").innerText = "Code: " + output;
+}
+
+// Profit Calculator
+function calculate() {
+    let cost = parseFloat(document.getElementById("cost").value);
+    let profit = parseFloat(document.getElementById("profit").value);
+
+    if (isNaN(cost) || isNaN(profit)) {
+        alert("Enter valid numbers");
+        return;
+    }
+
+    let sell = cost + (cost * profit / 100);
+
+    document.getElementById("result").innerText =
+        "Selling Price: " + sell.toFixed(2);
+}
+</script>
+
+</body>
+</html>
